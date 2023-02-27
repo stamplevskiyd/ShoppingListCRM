@@ -1,13 +1,13 @@
 {% load static %}
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>Offcanvas template · Bootstrap</title>
+    <title>Менеджер покупок</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/offcanvas/">
 
@@ -15,7 +15,6 @@
     <link href="https://getbootstrap.com/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
-
 
     <style>
         img {
@@ -28,7 +27,7 @@
 
 <body class="bg-light">
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-    <a class="navbar-brand mr-auto mr-lg-0" href="#">Offcanvas navbar</a>
+    <a class="navbar-brand mr-auto mr-lg-0" href="#">Какая-то ссылка</a>
     <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -38,15 +37,19 @@
             <li class="nav-item active">
                 <a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
             </li>
+
             <li class="nav-item">
-                <a class="nav-link" href="#">Notifications</a>
+                <a class="nav-link" href="users/register">Добавить пользователя</a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="#">Profile</a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="#">Switch account</a>
             </li>
+
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
@@ -81,24 +84,17 @@
     <!-- Список пользователей -->
     <div class="my-3 p-3 bg-white rounded shadow-sm">
         <h6 class="border-bottom border-gray pb-2 mb-0">Список пользователей</h6>
-        {% for user in users %}
+        {% for person in persons %}
             <div class="media text-muted pt-3">
                 <!-- Аватарка -->
-                <img class="bd-placeholder-img mr-2 rounded" width="32" height="32" src="{{ user.profile_picture_url }}" alt="" width="48" height="48">
+                <img class="bd-placeholder-img mr-2 rounded" width="32" height="32" src="{{ person.profile_picture_url }}" alt="" width="48" height="48">
 
                 <!-- Основные данные -->
                 <p class="media-body pb-3 mb-0 small lh-125">
-                    <a href="users/{{ user.id }}" class="d-block text-gray-dark">@{{ user.first_name }}</a>
-                    Номер телефона: {{ user.format_phone_number }}
+                    <a href="users/{{ person.id }}" class="d-block text-gray-dark">@{{ person.name }}</a>
+                    Номер телефона: {{ person.format_phone_number }}
                 </p>
             </div>
-
-            <!-- Список долгов -->
-            <ul class="border-bottom border-gray pb-2 mb-0">
-                <li>Coffee</li>
-                <li>Coffee</li>
-                <li>Coffee</li>
-            </ul>
         {% endfor %}
 
         <small class="d-block text-right mt-3">

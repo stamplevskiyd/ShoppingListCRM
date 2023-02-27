@@ -1,0 +1,55 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>Добавление пользователя</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/offcanvas/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+
+    <style>
+        img {
+            border-radius: 10%
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href={% static 'css/styles.css' %} rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container">
+    <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h2>Добавление нового пользователя</h2>
+    </div>
+
+    <div class="row">
+        <div class="col order-md-1">
+            <form action="/users/register" method="post" class="needs-validation">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="profile_url">Ссылка на профиль ВК</label>
+                    <input id="profile_url" type="url" name="profile_url" class="form-control" placeholder="https://vk.com/username" value="" required>
+                    <div class="invalid-feedback">
+                        Введите имя пользователя
+                    </div>
+                </div>
+
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Нажмите чтобы продолжить</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
