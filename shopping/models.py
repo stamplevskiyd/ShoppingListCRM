@@ -3,6 +3,7 @@ from django.db import models
 import random
 import requests
 from datetime import date
+from bs4 import BeautifulSoup
 
 
 class User(models.Model):
@@ -31,14 +32,10 @@ class User(models.Model):
         #TODO: Переделать, пока находит только картинки шакального качества
 
         r = requests.get(self.vk_profile_link)
-        lines = r.content.split()
+        soup = BeautifulSoup(r.content, 'html.parser')
+        avatars = soup.findAll('div', class_='Avatar__image Avatar__image-1')
 
-        index = 0
-        while lines[index] != b'style="background-image:':
-            index += 1
-
-        print(str(lines[index + 1]))
-        url = str(lines[index + 1]).split(';')[1]
+        url = avatars[0]["style"].split('\'')[1]
         return url
 
 
