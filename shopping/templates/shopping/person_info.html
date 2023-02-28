@@ -51,9 +51,9 @@
                         <!-- Кнопка для возврата долгов -->
                         <div class="text-center">
                             {% if person.person_debts|length > 0 %}
-                                <button type="button" class="btn btn-primary btn-rounded btn-lg">
+                                <a href="/depts/pay/{{ person.id }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">
                                     Вернуть долги
-                                </button>
+                                </a>
                             {% endif %}
                         </div>
                     </div>
@@ -98,7 +98,6 @@
                                     <li style="color: forestgreen">
                                         <a href="/users/{{ debt.second.id }}"
                                            style="color: forestgreen; display:inline">{{ debt.second.name }}</a>: {{ debt.amount }}р
-
                                     </li>
                                 {% else %}
                                     <li style="color: forestgreen">

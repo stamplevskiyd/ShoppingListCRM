@@ -1,0 +1,56 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>Оплата долгов</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/offcanvas/">
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+
+    <style>
+        img {
+            border-radius: 10%
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href={% static 'css/styles.css' %} rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>Оплата долгов</h2>
+    </div>
+
+    <div class="row">
+        <div class="col order-md-1">
+            <form action="/depts/pay/1" method="post" class="needs-validation">
+                {% csrf_token %}
+                <!-- Default switch -->
+                {% for dept in depts %}
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="customSwitches" name="dept_{{ dept.id }}">
+                        {% if debt.first.name == person.name %}
+                            <label class="custom-control-label" for="customSwitches">{{ dept.amount }} {{ dept.second.name }}</label>
+                        {% else %}
+                            <label class="custom-control-label" for="customSwitches">{{ dept.amount }} {{ dept.first.name }}</label>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Завершить</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

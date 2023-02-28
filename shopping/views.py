@@ -10,7 +10,6 @@ from bs4 import BeautifulSoup
 
 def index_view(request):
     """Главная страница"""
-
     persons = models.Person.objects.all()
     stores = models.Store.objects.all()
 
@@ -77,3 +76,16 @@ def save_person_view(request):
     person.save()
 
     return redirect('/')
+
+
+def pay_depts_view(request, id):
+    """Оплата долгов"""
+
+    if request.method == 'GET':
+        person = models.Person.objects.get(id=id)
+        return render(request, "shopping/pay_depts.html", context={
+            'depts': person.person_debts
+        })
+    else:
+        print(request.POST)
+        return HttpResponse("1")
