@@ -27,5 +27,5 @@ urlpatterns = [
     path('users/register', views.register_person_view, name='register_person_view'),
     path('users/save', views.save_person_view, name='save_person_view'),
 
-    path('depts/pay/<int:id>', views.pay_depts_view, name='pay_depts_view'),
+    path('debts/pay/<int:id>', views.pay_debts_view, name='pay_debts_view'),
 ]

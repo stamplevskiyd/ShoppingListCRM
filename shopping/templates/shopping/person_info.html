@@ -47,15 +47,6 @@
                         <h4 class="mb-2">{{ person.name }}</h4>
                         <p class="text-muted mb-4">Номер телефона: {{ person.format_phone_number }}</p>
                         <p class="text-muted mb-4">Профиль ВК: <a href="{{ person.profile_url }}">{{ person.profile_url }}</a></p>
-
-                        <!-- Кнопка для возврата долгов -->
-                        <div class="text-center">
-                            {% if person.person_debts|length > 0 %}
-                                <a href="/depts/pay/{{ person.id }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">
-                                    Вернуть долги
-                                </a>
-                            {% endif %}
-                        </div>
                     </div>
                 </div>
 
@@ -76,21 +67,33 @@
                 <!-- Список долгов всех пользователей -->
                 <div class="card" style="border-radius: 15px; margin-bottom: 15px;">
                     <div class="card-body text-left">
-                        <!-- Должен пользователь -->
-                        <ul>
-                            {% for debt in person.person_debts %}
-                                {% if debt.first.name == person.name %}
-                                    <li style="color: firebrick">
-                                        <a href="/users/{{ debt.second.id }}" style="color: firebrick">{{ debt.second.name }}</a>: {{ debt.amount }}р
-                                    </li>
-                                {% else %}
-                                    <li style="color: firebrick">
-                                        <a href="/users/{{ debt.first.id }}" style="color:firebrick">{{ debt.first.name }}</a>: {{ debt.amount }}р
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
 
+                        <!-- Должен пользователь -->
+                        <form action="/debts/pay/{{ person.id }}" method="post" class="needs-validation">
+                            {% csrf_token %}
+
+                            <!-- Список долгов -->
+                            {% for debt in person.person_debts %}
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="customSwitches" name="debt_payment_{{ debt.id }}">
+                                    {% if debt.first.name == person.name %}
+                                        <label class="custom-control-label" for="customSwitches">
+                                            <a href="/users/{{ debt.second.id }}" style="color: firebrick">{{ debt.second.name }}: {{ debt.amount }}р</a>
+                                        </label>
+                                    {% else %}
+                                        <label class="custom-control-label" for="customSwitches">
+                                            <a href="/users/{{ debt.first.id }}" style="color: firebrick">{{ debt.first.name }}: {{ debt.amount }}р</a>
+                                        </label>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+
+                            <!-- Кнопка оплаты -->
+                            {% if person.person_debts|length > 0 %}
+                                <hr class="mb-4">
+                                <button class="btn btn-primary btn-lg btn-block" type="submit">Вернуть выбранные долги</button>
+                            {% endif %}
+                        </form>
                         <!-- Должны пользователю -->
                         <ul>
                             {% for debt in person.to_person_debts %}

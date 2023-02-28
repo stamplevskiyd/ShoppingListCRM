@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from shopping import models
 
 import requests
+import re
 from bs4 import BeautifulSoup
 
 
@@ -78,14 +79,22 @@ def save_person_view(request):
     return redirect('/')
 
 
-def pay_depts_view(request, id):
+def pay_debts_view(request, id):
     """Оплата долгов"""
 
     if request.method == 'GET':
         person = models.Person.objects.get(id=id)
-        return render(request, "shopping/pay_depts.html", context={
-            'depts': person.person_debts
+        return render(request, "shopping/pay_debts.html", context={
+            'debts': person.person_debts
         })
     else:
-        print(request.POST)
-        return HttpResponse("1")
+        person = models.Person.objects.get(id=id)
+        debt_ids = [re.sub('debt_payment_', '', elem) for elem in request.POST.keys() if elem.startswith('debt_payment')]
+        debts = models.DebtSum.objects.filter(id__in=debt_ids)
+        for debt in debts:
+            debt.amount = 0
+            debt.save()
+
+        return render(request, "shopping/person_info.html", context={
+            'person': person
+        })
