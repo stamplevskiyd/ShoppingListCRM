@@ -24,8 +24,10 @@ urlpatterns = [
     path('', views.index_view, name='main_url'),
 
     path('users/<int:id>/', views.person_page_view, name='user_page_url'),
-    path('users/register', views.register_person_view, name='register_person_view'),
-    path('users/save', views.save_person_view, name='save_person_view'),
+    path('users/register', views.register_person_view, name='register_person_url'),
+    path('users/save', views.save_person_view, name='save_person_url'),
 
-    path('debts/pay/<int:id>', views.pay_debts_view, name='pay_debts_view'),
+    path('debts/pay/<int:id>', views.pay_debts_view, name='pay_debts_url'),
+
+    path('purchase/add', views.add_purchase_view, name='add_purchase_url'),
 ]

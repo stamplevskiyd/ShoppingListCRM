@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from shopping import models
 
@@ -22,7 +23,6 @@ def index_view(request):
 
 def person_page_view(request, id):
     """Личный кабинет пользователя"""
-
     person = models.Person.objects.get(id=id)
     return render(request, "shopping/person_info.html", context={
         'person': person
@@ -31,7 +31,6 @@ def person_page_view(request, id):
 
 def register_person_view(request):
     """Получить данные пользователя из ВК"""
-
     if request.method == 'GET':
         return render(request, "shopping/person_registration/register.html")
     else:
@@ -64,7 +63,6 @@ def register_person_view(request):
 
 def save_person_view(request):
     """Сохранить пользователя после подтверждения данных"""
-
     phone_number = request.POST["phone_number"][-10:]
     if models.Person.objects.filter(phone_number=phone_number).exists():
         return redirect('/')
@@ -81,7 +79,6 @@ def save_person_view(request):
 
 def pay_debts_view(request, id):
     """Оплата долгов"""
-
     if request.method == 'GET':
         person = models.Person.objects.get(id=id)
         return render(request, "shopping/pay_debts.html", context={
@@ -98,3 +95,19 @@ def pay_debts_view(request, id):
         return render(request, "shopping/person_info.html", context={
             'person': person
         })
+
+
+@csrf_exempt
+def add_purchase_view(request):
+    """Добавить покупки"""
+    if request.method == 'GET':
+        persons = models.Person.objects.all()
+        stores = models.Store.objects.all()
+
+        return render(request, "shopping/add_purchase.html", context={
+            'persons': persons,
+            'stores': stores
+        })
+
+    else:
+        print(request.POST)

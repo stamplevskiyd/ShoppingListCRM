@@ -11,11 +11,12 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="users/register">Добавить пользователя</a>
+{#                <a class="nav-link" href="users/register">Добавить пользователя</a>#}
+                <a class="nav-link" href="{% url "register_person_url" %}">Добавить пользователя</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">Profile</a>
+                <a class="nav-link" href="{% url "add_purchase_url" %}">Добавить покупку</a>
             </li>
 
             <li class="nav-item">

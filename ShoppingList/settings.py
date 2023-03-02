@@ -66,6 +66,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+
+            'libraries': {
+                'add_purchase_templates': 'shopping.templatetags.add_purchase_templates',
+            },
         },
     },
 ]
