@@ -44,121 +44,218 @@
 {% get_purchase_price_input as  purchase_price_input %}
 {% get_purchase_count_input as purchase_count_input %}
 {% get_remove_button as remove_button %}
-{#{% get_person_selector as person_selector %}#}
 
-<div class="container">
-    <div class="py-5 text-center">
-        <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-        <h2>Добавление нового пользователя</h2>
-    </div>
 
-    <div class="row">
-        <div class="col order-md-1 text-center">
-            <form name="FormData" method="post" action="">
-                <table class="table" id="product_table">
-                    <tbody>
-                    <tr>
-                        <th>Название продукта</th>
-                        <th>Цена продукта</th>
-                        <th>Количество продукта</th>
-                        <th style="width:40%;"></th>
-                    </tr>
-                    <tr>
-                        <!-- Название покупки -->
-                        <td>
-                            {% autoescape off %}
-                                {{ purchase_name_input }}
-                            {% endautoescape %}
-                        </td>
+{#<div class="container">#}
+{#    <div class="py-5 text-center">#}
+{#        <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">#}
+{#        <h2>Добавление нового пользователя</h2>#}
+{#    </div>#}
+{##}
+{#    <div class="row">#}
+{#        <div class="col order-md-1 text-center">#}
+{#            <form name="FormData" method="post" action="">#}
+{#                <table class="table" id="product_table">#}
+{#                    <tbody>#}
+{#                    <tr>#}
+{#                        <th>Название продукта</th>#}
+{#                        <th>Цена продукта</th>#}
+{#                        <th>Количество продукта</th>#}
+{#                        <th style="width:40%;"></th>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <!-- Название покупки -->#}
+{#                        <td>#}
+{#                            {% autoescape off %}#}
+{#                                {{ purchase_name_input }}#}
+{#                            {% endautoescape %}#}
+{#                        </td>#}
+{##}
+{#                        <!-- Стоимость покупки -->#}
+{#                        <td>#}
+{#                            {% autoescape off %}#}
+{#                                {{ purchase_price_input }}#}
+{#                            {% endautoescape %}#}
+{#                        </td>#}
+{##}
+{#                        <!-- Количество -->#}
+{#                        <td>#}
+{#                            {% autoescape off %}#}
+{#                                {{ purchase_count_input }}#}
+{#                            {% endautoescape %}#}
+{#                        </td>#}
+{##}
+{#                        <!-- Кому продукт -->#}
+{#                        <td>#}
+{#                            <select name="person_list[]" id="person_list[]" class="form-select form-select-sm" aria-label=".form-select-sm example">#}
+{#                                <option value="all">Все</option>#}
+{#                                {% for person in persons %}#}
+{#                                    <option value="{{ person.id }}">{{ person.name }}</option>#}
+{#                                {% endfor %}#}
+{#                            </select>#}
+{#                        </td>#}
+{##}
+{#                        <!-- Кнопка удаления -->#}
+{#                        <td>#}
+{#                            {% autoescape off %}#}
+{#                                {{ remove_button }}#}
+{#                            {% endautoescape %}#}
+{#                        </td>#}
+{#                    </tr>#}
+{#                    </tbody>#}
+{#                </table>#}
+{#                <hr class="mb-4">#}
+{#                <div class="col order-md-1 text-left">#}
+{#                    <button class="add_product btn btn-primary">Добавить</button>#}
+{#                    <input type="submit" class="btn btn-success" value="Завершить">#}
+{#                </div>#}
+{#            </form>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+{#</body>#}
+{#</html>#}
+{##}
+{##}
+{#<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">#}
+{#</script>#}
+{##}
+{#<script>#}
+{#    // //Add Employee#}
+{#    $(document).ready(function () {#}
+{#        var max_rows = 100; //Maximum allowed group of input fields#}
+{#        var wrapper = $("#product_table"); //Group of input fields wrapper#}
+{#        var add_button = $(".add_product"); //Add button class or ID#}
+{#        var x = 0; //Initial group of input fields count#}
+{##}
+{#        $(add_button).click(function (e) { //On click add product button#}
+{#            e.preventDefault();#}
+{#            if (x < max_rows) { //max group of input fields allowed#}
+{#                x++; //group of input fields increment#}
+{#                $('#product_table tr:last td:last-child').html("");#}
+{#                var line = ''#}
+{##}
+{#                {% autoescape off %}#}
+{#                    line += '<tr><td>';#}
+{#                    line += '{{ purchase_name_input }}</td><td>';#}
+{#                    line += '{{ purchase_price_input }}</td><td>';#}
+{#                    line += '{{ purchase_count_input }}</td><td>';#}
+{#                    var name = "person_list_" + x + "[]";#}
+{#                    line += '<select name="' + name + '" id="' + name + '" class="form-select form-select-sm" aria-label=".form-select-sm example">'#}
+{#                    line += '<option value="all">Все</option>'#}
+{#                    {% for person in persons %}#}
+{#                        line += '<option value="{{ person.id }}">{{ person.name }}</option>'#}
+{#                    {% endfor %}#}
+{#                    line += '</select></td></td></tr>'#}
+{#                    line += '{{ remove_button }}</td></td></tr>'#}
+{#line = +'<tr><td>' +#}
+{#    '{{ purchase_name_input }}</td><td>' +#}
+{#    '{{ purchase_price_input }}</td><td>' +#}
+{#    '{{ purchase_count_input }}</td><td>'#}
+{#                {% endautoescape %}#}
+{##}
+{#line += '<select class="selectpicker" name="person_list[]" id="person_list[]" multiple data-live-search="true">'#}
+{#line += '<option value="all">Все</option>'#}
+{##}
+{#                    {% for person in persons %}#}
+{#                        line += '<option value="{{ person.id }}">{{ person.name }}</option>'#}
+{#                    {% endfor %}#}
+{##}
+{#line += '</select></td></td>'#}
+{##}
+{#                {% autoescape off %}#}
+{#line += '{{ remove_button }}</td></tr>'#}
+{#                    $(wrapper).append(line);#}
+{#                {% endautoescape %}#}
+{##}
+{#$(wrapper).append(line);#}
+{#            }#}
+{#        });#}
+{##}
+{#        $(wrapper).on("click", ".remove_product", function (e) { // On click to remove button#}
+{#            e.preventDefault();#}
+{#            $(this).parent().parent().remove();#}
+{#            x--;#}
+{#            var rowCount = $("#product_table tr").length;#}
+{#            if (rowCount > 1) {#}
+{#                $('#product_table tr:last td:last-child').html('<button class="remove_product btn btn-danger">Удалить</button></td>');#}
+{#            }#}
+{#        });#}
+{##}
+{#    });#}
+{#</script>#}
 
-                        <!-- Стоимость покупки -->
-                        <td>
-                            {% autoescape off %}
-                                {{ purchase_price_input }}
-                            {% endautoescape %}
-                        </td>
+{#<div class="container">#}
+<div class="py-5 text-center">
+    <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+    <h2>Добавление покупки</h2>
+</div>
 
-                        <!-- Количество -->
-                        <td>
-                            {% autoescape off %}
-                                {{ purchase_count_input }}
-                            {% endautoescape %}
-                        </td>
-
-                        <!-- Кому продукт -->
-                        <td>
-                            <select class="selectpicker" name="person_list[]" id="person_list[]" multiple data-live-search="true">
-                                <option value="all">Все</option>
-                                {% for person in persons %}
-                                    <option value="{{ person.id }}">{{ person.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </td>
-
-                        <!-- Кнопка удаления -->
-                        <td>
-                            {% autoescape off %}
-                                {{ remove_button }}
-                            {% endautoescape %}
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <hr class="mb-4">
-                <div class="col order-md-1 text-left">
-                    <button class="add_product btn btn-primary">Добавить</button>
-                    <input type="submit" class="btn btn-success" value="Завершить">
-                </div>
-            </form>
-        </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<div>
+    <div class="col order-md-1 text-center">
+        <form action="{% url 'add_purchase_url' %}" method="post">
+        <button class="add_product_field btn btn-primary" style="margin-bottom: 15px">Добавить</button>
+        <input type="submit" class="btn btn-success" style="margin-bottom: 15px" value="Завершить">
+            <br>
+            <div class="product_list_container">
+                {% autoescape off %}
+                    {{ purchase_name_input }}
+                    {{ purchase_price_input }}
+                    {{ purchase_count_input }}
+                    <select name="person_list[]" id="person_list[]" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <option value="all">Все</option>
+                        {% for person in persons %}
+                            <option value="{{ person.id }}">{{ person.name }}</option>
+                        {% endfor %}
+                    </select>
+                    {{ remove_button }}
+                {% endautoescape %}
+            </div>
+        </form>
     </div>
 </div>
-</body>
-</html>
+{#</div>#}
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
-</script>
-
+<!-- Скрипт для добавления полей -->
 <script>
-    // //Add Employee
     $(document).ready(function () {
-        var max_rows = 100; //Maximum allowed group of input fields
-        var wrapper = $("#product_table"); //Group of input fields wrapper
-        var add_button = $(".add_product"); //Add button class or ID
-        var x = 0; //Initial group of input fields count
+        var max_fields = 100;
+        var wrapper = $(".product_list_container");
+        var add_button = $(".add_product_field");
 
-        $(add_button).click(function (e) { //On click add product button
+        var x = 1;
+        $(add_button).click(function (e) {
             e.preventDefault();
-            if (x < max_rows) { //max group of input fields allowed
-                x++; //group of input fields increment
-                $('#product_table tr:last td:last-child').html("");
+            if (x < max_fields) {
+                x++;
+                var line = ''
+                line += '<div class="col order-md-1 text-center">'
                 {% autoescape off %}
-                    $(wrapper).append('<tr><td>' +
-                        '{{ purchase_name_input }}</td><td>' +
-                        '{{ purchase_price_input }}</td><td>' +
-                        '{{ purchase_count_input }}</td><td>' +
-                        '<select class="selectpicker" name="person_list[]" id="person_list[]" multiple data-live-search="true">' +
-                        '<option value="all">Все</option>' +
-                        {#'{% endautoescape %}{% for person in persons %}' +#}
-                        {#    '<option value="{{ person.id }}">{{ person.name }}</option>' +#}
-                        {#    '{% endfor %}{% autoescape off %}' +#}
-                        '</select></td></td></tr>' +
-                        '{{ remove_button }}</td></td></tr>'
-                    );
+                    line += '{{ purchase_name_input }} '
+                    line += '{{ purchase_price_input }} '
+                    line += '{{ purchase_count_input }} '
+                    line += '<select name="person_list[]" id="person_list[]" class="form-select form-select-sm" aria-label=".form-select-sm example">'
+                    line += '<option value="all">Все</option>'
+                        {% for person in persons %}
+                        line += '<option value="{{ person.id }}">{{ person.name }}</option>'
+                        {% endfor %}
+                    line += '</select> '
+                    line += '{{ remove_button }} '
                 {% endautoescape %}
+                line += '</div>'
+                $(wrapper).append(line); //add input box
+            } else {
+                alert('You Reached the limits')
             }
         });
 
-        $(wrapper).on("click", ".remove_product", function (e) { // On click to remove button
+        $(wrapper).on("click", ".delete", function (e) {
             e.preventDefault();
-            $(this).parent().parent().remove();
+            $(this).parent('div').remove();
             x--;
-            var rowCount = $("#product_table tr").length;
-            if (rowCount > 1) {
-                $('#product_table tr:last td:last-child').html('<button class="remove_product btn btn-danger">Удалить</button></td>');
-            }
-        });
-
+        })
     });
+
 </script>

@@ -111,3 +111,4 @@ def add_purchase_view(request):
 
     else:
         print(request.POST)
+        return HttpResponse(request.POST)
